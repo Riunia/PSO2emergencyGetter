@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSO2emergencyGetter", "PSO2emergencyGetter\PSO2emergencyGetter.csproj", "{7E1D2347-60E5-49E0-951F-3D735730E31C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E1D2347-60E5-49E0-951F-3D735730E31C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E1D2347-60E5-49E0-951F-3D735730E31C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E1D2347-60E5-49E0-951F-3D735730E31C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E1D2347-60E5-49E0-951F-3D735730E31C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58FC68DC-2E53-4C22-876E-4A9F5A28C880}
+	EndGlobalSection
+EndGlobal
