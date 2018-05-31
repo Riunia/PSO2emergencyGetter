@@ -13,7 +13,7 @@ namespace PSO2emergencyGetter
 
         }
 
-        public override List<string> getData()
+        protected override List<string> getData()
         {
             //取得する緊急クエストの日数を計算
             DateTime dt = DateTime.Now;
@@ -45,7 +45,7 @@ namespace PSO2emergencyGetter
         public abstract string getEmgFromHttp(int day);
 
         //data:1日の緊急クエストのデータ
-        override public List<EventData> getProcess(List<string> data)
+        override protected List<object> getProcess(List<string> data)
         {
             List<EventData> output = new List<EventData>();
 
@@ -59,8 +59,15 @@ namespace PSO2emergencyGetter
                 }
             }
 
+            List<object> outputObj = new List<object>();
+
+            foreach(EventData o in output)
+            {
+                outputObj.Add(o);
+            }
+            
             outputlog(output);
-            return output;
+            return outputObj;
         }
 
         //Httpで取得した文字列をEventDataに変換(dataは1日の緊急クエストの一覧)

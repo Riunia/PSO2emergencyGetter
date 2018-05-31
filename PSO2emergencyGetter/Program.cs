@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace PSO2emergencyGetter
 {
@@ -7,6 +9,7 @@ namespace PSO2emergencyGetter
     {
         static void Main(string[] args)
         {
+            /*
             string user;
             string password;
             string db;
@@ -22,6 +25,18 @@ namespace PSO2emergencyGetter
             password = Console.ReadLine();
 
             AbstractDB DBConnect = new postgreSQL(address, db, user, password);
+            */
+
+            HttpClient hc = new HttpClient();
+
+            AbstractEmgGetter getter = new AkiEmgGetter(hc);
+            AbstractChampion chpGetter = new AkiChpGetter(hc);
+
+            Task<List<object>> res = getter.AsyncGetData();
+            Task<List<object>> chpRes = chpGetter.AsyncGetData();
+
+            res.Wait();
+            chpRes.Wait();
             Console.ReadLine();
         }
     }

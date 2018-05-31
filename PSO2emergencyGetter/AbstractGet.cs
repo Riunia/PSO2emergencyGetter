@@ -14,18 +14,18 @@ namespace PSO2emergencyGetter
         }
 
         //サーバからデータを取ってくる方法を定義
-        public abstract List<string> getData();
+        protected abstract List<string> getData();
 
         //サーバからデータを取ったあとの処理
-        public abstract List<EventData> getProcess(List<string> data);
+        protected abstract List<object> getProcess(List<string> data);
 
         //非同期処理
-        public async Task<List<EventData>> AsyncGetData()
+        public async Task<List<object>> AsyncGetData()
         {
-            List<EventData> res = await Task.Run(() =>
+            List<object> res = await Task.Run(() =>
             {
                 List<string> getStr = getData();
-                List<EventData> resData = getProcess(getStr);
+                List<object> resData = getProcess(getStr);
                 return resData;
             });
 
