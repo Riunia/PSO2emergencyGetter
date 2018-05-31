@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 
 namespace PSO2emergencyGetter
 {
@@ -21,7 +22,6 @@ namespace PSO2emergencyGetter
             password = Console.ReadLine();
 
             AbstractDB DBConnect = new postgreSQL(address, db, user, password);
-
             Console.ReadLine();
         }
     }

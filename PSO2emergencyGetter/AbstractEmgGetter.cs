@@ -59,10 +59,31 @@ namespace PSO2emergencyGetter
                 }
             }
 
+            outputlog(output);
             return output;
         }
 
         //Httpで取得した文字列をEventDataに変換(dataは1日の緊急クエストの一覧)
         abstract public List<EventData> ConvertStringToData(string data);
+
+        public void outputlog(List<EventData> data) //ログ出力
+        {
+            string log = "緊急クエストの情報を取得しました。\n";
+            int count = 1;
+
+            foreach (EventData ev in data)
+            {
+                log += string.Format("({0}){1}", ev.eventTime.ToString("MM/dd HH:mm"), ev.eventName);
+
+                if (data.Count != count)
+                {
+                    log += Environment.NewLine;
+                }
+
+                count++;
+            }
+
+            logOutput.writeLog(log);
+        }
     }
 }
