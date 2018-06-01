@@ -31,7 +31,19 @@ namespace PSO2emergencyGetter
         public abstract object command(string que);
 
         //パラメータを指定してQuery実行
-        public abstract object ParmCommand(string que, params object[] par);
+        public abstract object ParmCommand(string que, List<object> par);
+
+        public object ParamCommand(string que,params object[] par)
+        {
+            List<object> objList = new List<object>();
+
+            foreach(object o in par)
+            {
+                objList.Add(o);
+            }
+
+            return ParmCommand(que, objList);
+        }
 
     }
 }

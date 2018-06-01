@@ -5,7 +5,7 @@ using Npgsql;
 
 namespace PSO2emergencyGetter
 {
-    class postgreSQL : AbstractDB
+    class postgreSQL : AbstractDB,IPostgreSQL
     {
         private NpgsqlConnection connection;
 
@@ -47,23 +47,35 @@ namespace PSO2emergencyGetter
             return result;
         }
 
-        public override object ParmCommand(string que, params object[] par)
+        public override object ParmCommand(string que, List<object> par)
         {
-            NpgsqlCommand command = new NpgsqlCommand(que, connection);
+            List<NpgsqlParameter> paramsList = new List<NpgsqlParameter>();
 
-            foreach(object obj in par)
+            foreach (object obj in par)
             {
                 if(obj is NpgsqlParameter)
                 {
                     NpgsqlParameter np = obj as NpgsqlParameter;
-                    command.Parameters.Add(np);
+                    paramsList.Add(np);
                 }
             }
 
-            var result = command.ExecuteReader();
+            var result = ParmCommand(que, paramsList);
 
             return result;
 
+        }
+
+        public object ParmCommand(string que,List<NpgsqlParameter> param)
+        {
+            NpgsqlCommand command = new NpgsqlCommand(que, connection);
+
+            foreach (NpgsqlParameter p in param)
+            {
+                command.Parameters.Add(p);
+            }
+
+            return command.ExecuteReader();
         }
 
 
