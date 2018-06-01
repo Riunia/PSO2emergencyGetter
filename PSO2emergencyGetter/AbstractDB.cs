@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PSO2emergencyGetter
 {
-    abstract class AbstractDB
+    abstract class AbstractDB : IDatabase
     {
         protected string address;
         protected string DBname;
@@ -31,7 +31,7 @@ namespace PSO2emergencyGetter
         public abstract object command(string que);
 
         //パラメータを指定してQuery実行
-        public abstract object ParmCommand(string que, List<object> par);
+        public abstract object ListParamCommand(string que, List<object> par);
 
         public object ParamCommand(string que,params object[] par)
         {
@@ -42,7 +42,7 @@ namespace PSO2emergencyGetter
                 objList.Add(o);
             }
 
-            return ParmCommand(que, objList);
+            return ListParamCommand(que, objList);
         }
 
     }

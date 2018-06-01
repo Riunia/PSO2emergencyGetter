@@ -18,7 +18,7 @@ namespace PSO2emergencyGetter
         {
             if(filename == null)
             {
-                filename = @"config/log.txt";
+                filename = @"log.txt";
             }
 
             if(File.Exists(filename) == false)

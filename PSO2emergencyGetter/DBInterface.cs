@@ -5,12 +5,20 @@ using Npgsql;
 
 namespace PSO2emergencyGetter
 {
-    interface IPostgreSQL
+    interface IDatabase
     {
         int connect();
         int disconnect();
+        object ListParamCommand(string que, List<object> par);
+        object ParamCommand(string que, params object[] par);
         object command(string que);
-        object ParmCommand(string que, List<NpgsqlParameter> param);
+    }
 
+    //EventDataのデータをDBに書き込むためのインターフェイス
+    interface IEventDataBase : IDatabase
+    {
+        (string que, List<object> param) EventDataConvertQue(List<EventData> data);
+        void cleartable();
+        void setTable(string tablename);
     }
 }
