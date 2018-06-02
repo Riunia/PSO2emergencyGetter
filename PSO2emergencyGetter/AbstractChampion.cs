@@ -45,6 +45,21 @@ namespace PSO2emergencyGetter
             return output;
         }
 
+        public List<string> convertListData(List<object> objData)
+        {
+            List<string> outData = new List<string>();
+
+            foreach (object o in objData)
+            {
+                if (o is string)
+                {
+                    outData.Add(o as string);
+                }
+            }
+
+            return outData;
+        }
+
         //サーバから覇者の紋章情報を取ってくる方法
         protected abstract string getChpFromHttp();
 

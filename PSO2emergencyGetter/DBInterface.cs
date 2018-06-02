@@ -17,7 +17,14 @@ namespace PSO2emergencyGetter
     //EventDataのデータをDBに書き込むためのインターフェイス
     interface IEventDataBase : IDatabase
     {
-        (string que, List<object> param) EventDataConvertQue(List<EventData> data);
+        string EventDataConvertQue(List<EventData> data);
+        void cleartable();
+        void setTable(string tablename);
+    }
+
+    interface IChpDataBase : IDatabase
+    {
+        string ChpDataConvertQue(List<string> data);
         void cleartable();
         void setTable(string tablename);
     }

@@ -9,7 +9,6 @@ namespace PSO2emergencyGetter
     {
         static void Main(string[] args)
         {
-            /*
             string user;
             string password;
             string db;
@@ -24,8 +23,7 @@ namespace PSO2emergencyGetter
             Console.Write("password:");
             password = Console.ReadLine();
 
-            AbstractDB DBConnect = new postgreSQL(address, db, user, password);
-            */
+            IEventDataBase DBConnect = new PostgreSQL_Emg(address, db, user, password);
 
             HttpClient hc = new HttpClient();
 
@@ -37,6 +35,12 @@ namespace PSO2emergencyGetter
 
             res.Wait();
             chpRes.Wait();
+
+            List<EventData> resEV = getter.ConvertEventData(res.Result);
+
+            EmgDatabase_Writer writer = new EmgDatabase_Writer(DBConnect);
+            Task t = writer.AsyncWriteDB(resEV);
+            t.Wait();
             Console.ReadLine();
         }
     }

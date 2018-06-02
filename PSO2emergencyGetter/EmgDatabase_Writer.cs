@@ -21,9 +21,10 @@ namespace PSO2emergencyGetter
 
         public int writeDB(List<EventData> ev)
         {
-            (string que, List<object> param) = EventDB.EventDataConvertQue(ev);
-            db.ListParamCommand(que, param);
+            string que = EventDB.EventDataConvertQue(ev);
+            db.command(que);
 
+            logOutput.writeLog("データベースに緊急クエスト情報を書き込みました。");
             //とりあえず0を返す
             return 0;
         }

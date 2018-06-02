@@ -70,6 +70,22 @@ namespace PSO2emergencyGetter
             return outputObj;
         }
 
+        //ObjectからEventDataに変換
+        public List<EventData> ConvertEventData(List<object> objectData)
+        {
+            List<EventData> outEvData = new List<EventData>();
+
+            foreach(object o in objectData)
+            {
+                if(o is EventData)
+                {
+                    outEvData.Add(o as EventData);
+                }
+            }
+
+            return outEvData;
+        }
+
         //Httpで取得した文字列をEventDataに変換(dataは1日の緊急クエストの一覧)
         abstract public List<EventData> ConvertStringToData(string data);
 
