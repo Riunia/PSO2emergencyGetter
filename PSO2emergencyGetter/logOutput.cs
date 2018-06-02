@@ -2,6 +2,7 @@
 //using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace PSO2emergencyGetter
 {
@@ -18,12 +19,13 @@ namespace PSO2emergencyGetter
         {
             if(filename == null)
             {
-                filename = @"log.txt";
+                filename = @"config/log.txt";
             }
 
             if(File.Exists(filename) == false)
             {
-                //Directory.CreateDirectory(filename);
+                string directory = Regex.Replace(filename, "/.+$", string.Empty);
+                Directory.CreateDirectory(directory);
             }
 
             dt = DateTime.Now;

@@ -28,6 +28,11 @@ namespace PSO2emergencyGetter
                 logOutput.writeLog("データベースへの接続に失敗しました。");
                 return 1;
             }
+            catch (System.TimeoutException)
+            {
+                logOutput.writeLog("タイムアウトしました。");
+                return 1;
+            }
 
             logOutput.writeLog("データベースに接続しました。");
             return connection;
