@@ -7,17 +7,17 @@ namespace PSO2emergencyGetter
 {
     class postgreSQL : AbstractDB
     {
-        private NpgsqlConnection connection;
+        //private NpgsqlConnection connection;
 
         public postgreSQL(string address, string DBname, string user, string password) : base(address,DBname,user,password)
         {
 
         }
 
-        public override int connect()
+        public override object connect()
         {
             string connectStr = string.Format("Server={0};Port=5432;User Id={1};Password={2};Database={3};", address, user, password, DBname);
-            connection = new NpgsqlConnection(connectStr);
+            NpgsqlConnection connection = new NpgsqlConnection(connectStr);
 
             try
             {
@@ -30,26 +30,41 @@ namespace PSO2emergencyGetter
             }
 
             logOutput.writeLog("データベースに接続しました。");
-            return 0;
+            return connection;
         }
 
-        public override int disconnect()
+        public NpgsqlConnection NpgConnect()
         {
-            connection.Close();
+            object objConnect = connect();
+            NpgsqlConnection np = objConnect as NpgsqlConnection;
+
+            return np;
+        }
+
+        public override int disconnect(object obj)
+        {
+            if (obj is NpgsqlConnection)
+            {
+                NpgsqlConnection con = obj as NpgsqlConnection;
+                con.Close();
+            }
             return 0;
         }
 
         public override object command(string que)
         {
-            NpgsqlCommand command = new NpgsqlCommand(que, connection);
+            NpgsqlConnection con = NpgConnect();
+            NpgsqlCommand command = new NpgsqlCommand(que, con);
             var result = command.ExecuteReader();
 
+            disconnect(con);
             return result;
         }
 
         public override object ListParamCommand(string que, List<object> par)
         {
-            NpgsqlCommand command = new NpgsqlCommand(que, connection);
+            NpgsqlConnection connection = NpgConnect();
+            NpgsqlCommand command = new NpgsqlCommand(que,connection);
 
             foreach (object obj in par)
             {
@@ -61,7 +76,7 @@ namespace PSO2emergencyGetter
             }
 
             var result = command.ExecuteReader();
-
+            disconnect(connection);
             return result;
 
         }

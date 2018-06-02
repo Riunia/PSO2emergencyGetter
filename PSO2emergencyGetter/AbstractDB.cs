@@ -18,14 +18,14 @@ namespace PSO2emergencyGetter
             this.user = user;
             this.password = password;
 
-            connect();
+            //connect();
         }
 
         //データベースへの接続
-        public abstract int connect();
+        public abstract object connect();
 
         //データベースから切断
-        public abstract int disconnect();
+        public abstract int disconnect(object obj);
 
         //Queryの実行
         public abstract object command(string que);

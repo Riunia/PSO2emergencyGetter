@@ -15,6 +15,7 @@ namespace PSO2emergencyGetter
 
         public void cleartable()
         {
+            logOutput.writeLog("緊急クエストのテーブル内容を削除します。");
             string que = string.Format("truncate table {0} restart identity", tablename);
             command(que);
         }
@@ -35,22 +36,13 @@ namespace PSO2emergencyGetter
                 string adddata = "";
                 if (ev is emgQuest) {
                     emgQuest emg = ev as emgQuest;
-                    if (emg.liveEnable == false)
-                    {
-                        adddata += string.Format("('{0}','{1}','{2}','{3}','0')",
+
+
+                    adddata += string.Format("('{0}','{1}','{2}','{3}','0')",
                             count.ToString(),
                             emg.eventName,
-                            0,
+                            emg.live,
                             emg.eventTime.ToString());
-                    }
-                    else
-                    {
-                        adddata += string.Format("('{0}','{1}','{2}','{3}','0')",
-                           count.ToString(),
-                           emg.eventName,
-                           emg.live,
-                           emg.eventTime.ToString());
-                    }
                 }
 
                 if(ev is casino)

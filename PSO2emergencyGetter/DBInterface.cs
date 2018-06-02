@@ -7,8 +7,8 @@ namespace PSO2emergencyGetter
 {
     interface IDatabase
     {
-        int connect();
-        int disconnect();
+        object connect();
+        int disconnect(object obj);
         object ListParamCommand(string que, List<object> par);
         object ParamCommand(string que, params object[] par);
         object command(string que);
