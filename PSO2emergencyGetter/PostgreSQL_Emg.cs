@@ -70,7 +70,7 @@ namespace PSO2emergencyGetter
 
             outQue += tmpdata;
 
-            logOutput.writeLog("QUE:{0}", outQue);
+            //logOutput.writeLog("QUE:{0}", outQue);
             return outQue;
         }
     }

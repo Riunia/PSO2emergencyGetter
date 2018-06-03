@@ -9,6 +9,8 @@ namespace PSO2emergencyGetter
     {
         static void Main(string[] args)
         {
+            //デバッグ用コード
+
             string user;
             string password;
             string db;
@@ -23,8 +25,8 @@ namespace PSO2emergencyGetter
             Console.Write("password:");
             password = Console.ReadLine();
 
-            IEventDataBase DBConnect = new PostgreSQL_Emg(address, db, user, password);
 
+            //覇者の紋章・緊急クエストの取得
             HttpClient hc = new HttpClient();
 
             AbstractEmgGetter getter = new AkiEmgGetter(hc);
@@ -36,11 +38,20 @@ namespace PSO2emergencyGetter
             res.Wait();
             chpRes.Wait();
 
+            //データベースへの書き込み
+            IEventDataBase DBConnect = new PostgreSQL_Emg(address, db, user, password);
             List<EventData> resEV = getter.ConvertEventData(res.Result);
-
             EmgDatabase_Writer writer = new EmgDatabase_Writer(DBConnect);
             Task t = writer.AsyncWriteDB(resEV);
+
+            IChpDataBase DB_Hasha = new PostgreSQL_Chp(address, db, user, password);
+            List<string> resChp = chpGetter.convertListData(chpRes.Result);
+            ChpDatabase_Writer chpWriter = new ChpDatabase_Writer(DB_Hasha);
+            Task s = chpWriter.AsyncWriteDB(resChp);
+
             t.Wait();
+            s.Wait();
+
             Console.ReadLine();
         }
     }

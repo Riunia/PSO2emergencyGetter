@@ -23,11 +23,18 @@ namespace PSO2emergencyGetter
         {
             EventDB.cleartable();
             string que = EventDB.EventDataConvertQue(ev);
-            EventDB.command(que);
+            object result = EventDB.command(que);
 
-            logOutput.writeLog("データベースに緊急クエスト情報を書き込みました。");
-            //とりあえず0を返す
-            return 0;
+            if (result is int)
+            {
+                logOutput.writeLog("緊急クエストのデータベースへの書き込みが失敗しました。");
+                return 1;
+            }
+            else
+            {
+                logOutput.writeLog("データベースに緊急クエスト情報を書き込みました。");
+                return 0;
+            }
         }
 
         //非同期で実行
