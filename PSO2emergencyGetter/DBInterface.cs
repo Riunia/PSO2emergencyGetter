@@ -12,6 +12,7 @@ namespace PSO2emergencyGetter
         object ListParamCommand(string que, List<object> par);
         object ParamCommand(string que, params object[] par);
         object command(string que);
+        string getDBType();
     }
 
     //EventDataのデータをDBに書き込むためのインターフェイス

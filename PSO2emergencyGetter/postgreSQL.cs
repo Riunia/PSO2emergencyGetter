@@ -92,5 +92,10 @@ namespace PSO2emergencyGetter
 
         }
 
+        public override string getDBType()
+        {
+            return "POSTGRE_SQL";
+        }
+
     }
 }
