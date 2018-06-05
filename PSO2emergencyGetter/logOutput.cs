@@ -40,11 +40,6 @@ namespace PSO2emergencyGetter
             writeLog(str);
         }
 
-        public static void outputPronpt()
-        {
-            System.Console.Write("PSO2 Discord > ");
-        }
-
         public static void init(string name)
         {
             filename = name;
@@ -62,7 +57,16 @@ namespace PSO2emergencyGetter
         {
             while (true)
             {
-                if(logQue.Count != 0)
+                /*
+                foreach (string s in logQue)
+                {
+                    outputlogfile(s);
+                    //logQue.Remove(s);
+                }
+                logQue.Clear();
+                */
+                
+                if (logQue.Count != 0)
                 {
                     outputlogfile(logQue[0]);
                     logQue.RemoveAt(0);
@@ -88,7 +92,7 @@ namespace PSO2emergencyGetter
             date = dt.ToString("yyyy/MM/dd");
             time = dt.ToString("HH:mm:ss");
             string text = string.Format("[{0} {1}]{2}", date, time, str);
-            /*
+
             try
             {
                 using (FileStream file = new FileStream(filename, FileMode.Append))
@@ -96,21 +100,21 @@ namespace PSO2emergencyGetter
                     using (StreamWriter writer = new StreamWriter(file, Encoding.UTF8))
                     {
                         writer.WriteLine(text);
-                        System.Console.WriteLine(text);
+                        //System.Console.WriteLine(text);
                     }
                 }
             }
             catch (FieldAccessException)
             {
-                System.Console.WriteLine(text);
+                //System.Console.WriteLine(text);
                 System.Console.WriteLine("ログファイルへの書き込みに失敗しました。");
             }
             catch (System.Security.SecurityException)
             {
-                System.Console.WriteLine(text);
+                //System.Console.WriteLine(text);
                 System.Console.WriteLine("ログファイルへのアクセス権がありません。");
             }
-            */
+
             System.Console.WriteLine(text);
         }
     }

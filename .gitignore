@@ -263,3 +263,4 @@ __pycache__/
 # Config file
 config/*
 log.txt
+config.xml
