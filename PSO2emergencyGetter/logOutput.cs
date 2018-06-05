@@ -3,6 +3,8 @@
 using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PSO2emergencyGetter
 {
@@ -14,15 +16,69 @@ namespace PSO2emergencyGetter
         private static DateTime dt;
         private static string date;
         private static string time;
+        private static List<string> logQue;
+
+        private static bool loop = false;
 
         public static void writeLog(string str)
         {
-            if(filename == null)
+            if(logQue == null)
+            {
+                logQue = new List<string>();
+            }
+            if(loop == false)
+            {
+                Task t = startloop();
+            }
+
+            logQue.Add(str);
+        }
+
+        public static void writeLog(string log,params string[] args)
+        {
+            string str = string.Format(log, args);
+            writeLog(str);
+        }
+
+        public static void outputPronpt()
+        {
+            System.Console.Write("PSO2 Discord > ");
+        }
+
+        public static void init(string name)
+        {
+            filename = name;
+        }
+
+        public static async Task startloop()
+        {
+            loop = true;
+            await Task.Run(() => {
+                QueLoop();
+            });
+        }
+
+        private static void QueLoop()
+        {
+            while (true)
+            {
+                if(logQue.Count != 0)
+                {
+                    outputlogfile(logQue[0]);
+                    logQue.RemoveAt(0);
+                }
+                System.Threading.Thread.Sleep(50);
+            }
+        }
+
+        private static void outputlogfile(string str)
+        {
+            if (filename == null)
             {
                 filename = @"config/log.txt";
             }
 
-            if(File.Exists(filename) == false)
+            if (File.Exists(filename) == false)
             {
                 string directory = Regex.Replace(filename, "/.+$", string.Empty);
                 Directory.CreateDirectory(directory);
@@ -44,7 +100,7 @@ namespace PSO2emergencyGetter
                     }
                 }
             }
-            catch(FieldAccessException)
+            catch (FieldAccessException)
             {
                 System.Console.WriteLine(text);
                 System.Console.WriteLine("ログファイルへの書き込みに失敗しました。");
@@ -54,22 +110,6 @@ namespace PSO2emergencyGetter
                 System.Console.WriteLine(text);
                 System.Console.WriteLine("ログファイルへのアクセス権がありません。");
             }
-        }
-
-        public static void writeLog(string log,params string[] args)
-        {
-            string str = string.Format(log, args);
-            writeLog(str);
-        }
-
-        public static void outputPronpt()
-        {
-            System.Console.Write("PSO2 Discord > ");
-        }
-
-        public static void init(string name)
-        {
-            filename = name;
         }
     }
 }
