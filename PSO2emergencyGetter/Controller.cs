@@ -82,9 +82,39 @@ namespace PSO2emergencyGetter
 
         public async Task AsyncWriteEmg()
         {
-            await Task.Run(()=>{
+            await Task.Run(() => {
                 writeEmgDB();
             });
+        }
+
+        public void dropChpTable()  //覇者の紋章のテーブル削除
+        {
+            conf.chpDB.droptable();
+        }
+
+        public void dropEmgTable()
+        {
+            conf.eveDB.droptable();
+        }
+
+        public void createChpTable()    //テーブル作成
+        {
+            conf.chpDB.createtable();
+        }
+
+        public void createEmgTable()
+        {
+            conf.eveDB.createtable();
+        }
+
+        public void clearChpTable()    //テーブルクリア
+        {
+            conf.chpDB.cleartable();
+        }
+
+        public void clearEmgTable()
+        {
+            conf.eveDB.cleartable();
         }
 
         private void setNextGetTime()   //次の緊急クエスト・覇者の紋章の取得時間を設定
