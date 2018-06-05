@@ -88,7 +88,7 @@ namespace PSO2emergencyGetter
             date = dt.ToString("yyyy/MM/dd");
             time = dt.ToString("HH:mm:ss");
             string text = string.Format("[{0} {1}]{2}", date, time, str);
-
+            /*
             try
             {
                 using (FileStream file = new FileStream(filename, FileMode.Append))
@@ -110,6 +110,8 @@ namespace PSO2emergencyGetter
                 System.Console.WriteLine(text);
                 System.Console.WriteLine("ログファイルへのアクセス権がありません。");
             }
+            */
+            System.Console.WriteLine(text);
         }
     }
 }

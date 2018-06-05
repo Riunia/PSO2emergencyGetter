@@ -9,38 +9,15 @@ namespace PSO2emergencyGetter
     {
         static void Main(string[] args)
         {
-            string user;
-            string password;
-            string db;
-            string address;
+            //デバッグ用コード
+            Controller con = new Controller();
 
-            Console.Write("Address:");
-            address = Console.ReadLine();
-            Console.Write("Database:");
-            db = Console.ReadLine();
-            Console.Write("username:");
-            user = Console.ReadLine();
-            Console.Write("password:");
-            password = Console.ReadLine();
+            Task chp = con.AsyncWriteEmg();
+            Task emg = con.AsyncWriteEmg();
 
-            IEventDataBase DBConnect = new PostgreSQL_Emg(address, db, user, password);
+            chp.Wait();
+            emg.Wait();
 
-            HttpClient hc = new HttpClient();
-
-            AbstractEmgGetter getter = new AkiEmgGetter(hc);
-            AbstractChampion chpGetter = new AkiChpGetter(hc);
-
-            Task<List<object>> res = getter.AsyncGetData();
-            Task<List<object>> chpRes = chpGetter.AsyncGetData();
-
-            res.Wait();
-            chpRes.Wait();
-
-            List<EventData> resEV = getter.ConvertEventData(res.Result);
-
-            EmgDatabase_Writer writer = new EmgDatabase_Writer(DBConnect);
-            Task t = writer.AsyncWriteDB(resEV);
-            t.Wait();
             Console.ReadLine();
         }
     }

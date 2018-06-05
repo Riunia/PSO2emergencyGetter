@@ -33,6 +33,8 @@ namespace PSO2emergencyGetter
         //パラメータを指定してQuery実行
         public abstract object ListParamCommand(string que, List<object> par);
 
+        public abstract string getDBType();
+
         public object ParamCommand(string que,params object[] par)
         {
             List<object> objList = new List<object>();

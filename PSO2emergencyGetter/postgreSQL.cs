@@ -60,10 +60,16 @@ namespace PSO2emergencyGetter
         {
             NpgsqlConnection con = NpgConnect();
             NpgsqlCommand command = new NpgsqlCommand(que, con);
-            var result = command.ExecuteReader();
-
-            disconnect(con);
-            return result;
+            if(con != null) {
+                var result = command.ExecuteReader();
+                disconnect(con);
+                return result;
+            }
+            else
+            {
+                logOutput.writeLog("データベースへのクエリの実行ができません。");
+                return 1;
+            }
         }
 
         public override object ListParamCommand(string que, List<object> par)
@@ -84,6 +90,11 @@ namespace PSO2emergencyGetter
             disconnect(connection);
             return result;
 
+        }
+
+        public override string getDBType()
+        {
+            return "POSTGRE_SQL";
         }
 
     }

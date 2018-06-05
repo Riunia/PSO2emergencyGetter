@@ -14,7 +14,7 @@ namespace PSO2emergencyGetter
         {
             this.db = db;
             this.tablename = tablename;
-            db.connect();
+            //db.connect();
         }
 
         //データベースにテーブルを設定する方法
