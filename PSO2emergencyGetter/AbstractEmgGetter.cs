@@ -15,6 +15,8 @@ namespace PSO2emergencyGetter
 
         protected override List<string> getData()
         {
+            //曜日にかかわらず一週間分取得するように変更でもいい気がする
+
             //取得する緊急クエストの日数を計算
             DateTime dt = DateTime.Now;
 
@@ -31,7 +33,8 @@ namespace PSO2emergencyGetter
 
             List<string> output = new List<string>();
 
-            for(int i = 0; i < getDays; i++)
+            //for(int i = 0; i < getDays; i++)
+            for (int i = 0; i < 7; i++)
             {
                 string tmp = getEmgFromHttp(i);
                 output.Add(tmp);

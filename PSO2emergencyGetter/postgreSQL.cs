@@ -34,7 +34,7 @@ namespace PSO2emergencyGetter
                 return 1;
             }
 
-            logOutput.writeLog("データベースに接続しました。");
+            //logOutput.writeLog("データベースに接続しました。");
             return connection;
         }
 
