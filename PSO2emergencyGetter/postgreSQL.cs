@@ -61,9 +61,18 @@ namespace PSO2emergencyGetter
             NpgsqlConnection con = NpgConnect();
             NpgsqlCommand command = new NpgsqlCommand(que, con);
             if(con != null) {
-                var result = command.ExecuteReader();
-                disconnect(con);
-                return result;
+
+                try
+                {
+                    var result = command.ExecuteReader();
+                    disconnect(con);
+                    return result;
+                }
+                catch (Npgsql.PostgresException e)
+                {
+                    logOutput.writeLog("SQLを実行できません。({0})", e.MessageText);
+                    return 1;
+                }
             }
             else
             {

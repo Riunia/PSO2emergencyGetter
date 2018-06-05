@@ -36,6 +36,8 @@ namespace PSO2emergencyGetter
                 {
                     outPara.Add(s);
                 }
+
+                count++;
             }
 
             return (outCommand, outPara);
@@ -61,92 +63,168 @@ namespace PSO2emergencyGetter
 
         private void process(string command , List<string> param)
         {
-            if(command == "end")
+            bool run = false;
+
+            if(command == "")
+            {
+                //outputPronpt();
+                return;
+            }
+
+            if(command == "end" || command == "quit" || command == "stop" || command == "exit")
             {
                 end = true;
                 logOutput.writeLog("PSO2emergencyGetterを終了します。");
+                run = true;
             }
 
             if (command == "drop")
             {
-                if(param[0] == "chp")
+                if (param.Count != 0)
                 {
-                    logOutput.writeLog("覇者の紋章のテーブルを削除します。");
-                    controll.dropChpTable();
-                }
+                    if (param[0] == "chp")
+                    {
+                        logOutput.writeLog("覇者の紋章のテーブルを削除します。");
+                        controll.dropChpTable();
+                        run = true;
+                    }
 
-                if(param[0] == "emg")
-                {
-                    logOutput.writeLog("緊急クエストのテーブルを削除します。");
-                    controll.dropEmgTable();
-                }
+                    if (param[0] == "emg")
+                    {
+                        logOutput.writeLog("緊急クエストのテーブルを削除します。");
+                        controll.dropEmgTable();
+                        run = true;
+                    }
 
-                if(param[0] != "chp" && param[0] != "emg")
+                    if (param[0] != "chp" && param[0] != "emg")
+                    {
+                        Console.WriteLine("値が不正です。");
+                        run = true;
+                    }
+                }
+                else
                 {
-                    Console.WriteLine("値が不正です。");
+                    Console.WriteLine("削除するテーブルを指定してください。");
+                    run = true;
                 }
             }
 
             if (command == "create")
             {
-                if (param[0] == "chp")
+                if (param.Count != 0)
                 {
-                    logOutput.writeLog("覇者の紋章のテーブルを作成します。");
-                    controll.createChpTable();
-                }
+                    if (param[0] == "chp")
+                    {
+                        //logOutput.writeLog("覇者の紋章のテーブルを作成します。");
+                        controll.createChpTable();
+                        run = true;
+                    }
 
-                if (param[0] == "emg")
-                {
-                    logOutput.writeLog("緊急クエストのテーブルを作成します。");
-                    controll.createEmgTable();
-                }
+                    if (param[0] == "emg")
+                    {
+                        //logOutput.writeLog("緊急クエストのテーブルを作成します。");
+                        controll.createEmgTable();
+                        run = true;
+                    }
 
-                if (param[0] != "chp" && param[0] != "emg")
+                    if (param[0] != "chp" && param[0] != "emg")
+                    {
+                        Console.WriteLine("値が不正です。");
+                        run = true;
+                    }
+                }
+                else
                 {
-                    Console.WriteLine("値が不正です。");
+                    Console.WriteLine("作成するテーブルを指定してください。");
+                    run = true;
                 }
             }
 
             if (command == "clear")
             {
-                if (param[0] == "chp")
+                if (param.Count != 0)
                 {
-                    logOutput.writeLog("覇者の紋章のテーブルをクリアします。");
-                    controll.clearChpTable();
-                }
+                    if (param[0] == "chp")
+                    {
+                        //logOutput.writeLog("覇者の紋章のテーブルをクリアします。");
+                        controll.clearChpTable();
+                        run = true;
+                    }
 
-                if (param[0] == "emg")
-                {
-                    logOutput.writeLog("緊急クエストのテーブルをクリアします。");
-                    controll.clearEmgTable();
-                }
+                    if (param[0] == "emg")
+                    {
+                        //logOutput.writeLog("緊急クエストのテーブルをクリアします。");
+                        controll.clearEmgTable();
+                        run = true;
+                    }
 
-                if (param[0] != "chp" && param[0] != "emg")
+                    if (param[0] != "chp" && param[0] != "emg")
+                    {
+                        Console.WriteLine("値が不正です。");
+                        run = true;
+                    }
+                }
+                else
                 {
-                    Console.WriteLine("値が不正です。");
+                    Console.WriteLine("クリアするテーブルを指定してください。");
+                    run = true;
                 }
             }
 
             if(command == "get")
             {
-                if (param[0] == "chp")
+                if (param.Count != 0)
                 {
-                    logOutput.writeLog("覇者の紋章情報を取得します。");
-                    Task t = controll.AsyncWriteChpDB();
-                }
+                    if (param[0] == "chp")
+                    {
+                        logOutput.writeLog("覇者の紋章情報を取得します。");
+                        Task t = controll.AsyncWriteChpDB();
+                        run = true;
+                        t.Wait();
+                    }
 
-                if (param[0] == "emg")
-                {
-                    logOutput.writeLog("緊急クエストを取得します。");
-                    Task t = controll.AsyncWriteEmg();
-                    controll.clearEmgTable();
-                }
+                    if (param[0] == "emg")
+                    {
+                        logOutput.writeLog("緊急クエストを取得します。");
+                        Task t = controll.AsyncWriteEmg();
+                        controll.clearEmgTable();
+                        run = true;
+                        t.Wait();
+                    }
 
-                if (param[0] != "chp" && param[0] != "emg")
+                    if (param[0] != "chp" && param[0] != "emg")
+                    {
+                        logOutput.writeLog("値が不正です。");
+                        run = true;
+                    }
+                }
+                else
                 {
                     logOutput.writeLog("緊急クエストと覇者の紋章の情報を取得します。");
                     (Task em, Task ch) = controll.getHttp();
+                    run = true;
+                    em.Wait();
+                    ch.Wait();
                 }
+            }
+
+            if(command == "init")
+            {
+                Console.WriteLine("初期コマンドを実行します。");
+                controll.createChpTable();
+                controll.createEmgTable();
+                (Task em, Task ch) = controll.getHttp();
+                em.Wait();
+                ch.Wait();
+            }
+
+            if(run == false)
+            {
+                Console.WriteLine("コマンドが見つかりません。");
+            }
+            else
+            {
+               // outputPronpt();
             }
         }
     }

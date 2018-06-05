@@ -10,6 +10,7 @@ namespace PSO2emergencyGetter
         static void Main(string[] args)
         {
             //デバッグ用コード
+            /*
             Controller con = new Controller();
 
             (Task emg, Task chp) = con.getHttp();
@@ -18,6 +19,9 @@ namespace PSO2emergencyGetter
             emg.Wait();
 
             Console.ReadLine();
+            */
+
+            ConsoleController cc = new ConsoleController();
         }
     }
 }
