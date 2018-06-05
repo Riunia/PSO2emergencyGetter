@@ -109,6 +109,7 @@ namespace PSO2emergencyGetter
             XmlFileIO.xmlSave(sv.GetType(), filename, sv);
         }
 
+        
         public static bool existConfigFile()
         {
             return File.Exists(filename);

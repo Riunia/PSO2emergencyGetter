@@ -12,8 +12,7 @@ namespace PSO2emergencyGetter
             //デバッグ用コード
             Controller con = new Controller();
 
-            Task chp = con.AsyncWriteChpDB();
-            Task emg = con.AsyncWriteEmg();
+            (Task emg, Task chp) = con.getHttp();
 
             chp.Wait();
             emg.Wait();
