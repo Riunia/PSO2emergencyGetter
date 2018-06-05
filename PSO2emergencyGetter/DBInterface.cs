@@ -20,6 +20,8 @@ namespace PSO2emergencyGetter
     {
         string EventDataConvertQue(List<EventData> data);
         void cleartable();
+        void droptable();
+        void createtable();
         void setTable(string tablename);
     }
 
@@ -27,6 +29,8 @@ namespace PSO2emergencyGetter
     {
         string ChpDataConvertQue(List<string> data);
         void cleartable();
+        void droptable();
+        void createtable();
         void setTable(string tablename);
     }
 }

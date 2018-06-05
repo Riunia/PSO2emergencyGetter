@@ -20,6 +20,22 @@ namespace PSO2emergencyGetter
             command(que);
         }
 
+        public void droptable()
+        {
+            logOutput.writeLog("緊急クエストのテーブルを削除します。");
+            command(string.Format("DROP TABLE {0};", tablename));
+        }
+
+        public void createtable()
+        {
+            logOutput.writeLog("緊急クエストのテーブルを作成します。");
+            string queStr = string.Format(
+                "CREATE TABLE {0} (ID int primary key,EmgName text,LiveName text,EmgTime timestamp,EmgType int);", 
+                tablename);
+
+            command(queStr);
+        }
+
         public void setTable(string t)
         {
             this.tablename = t;

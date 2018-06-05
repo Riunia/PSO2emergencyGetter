@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PSO2emergencyGetter
 {
-    class PostgreSQL_Chp : postgreSQL,IChpDataBase
+    class PostgreSQL_Chp : postgreSQL, IChpDataBase
     {
         string tablename;
 
@@ -18,6 +18,20 @@ namespace PSO2emergencyGetter
             logOutput.writeLog("覇者の紋章のテーブル内容を削除します。");
             string que = string.Format("truncate table {0} restart identity", tablename);
             command(que);
+        }
+
+        public void droptable()
+        {
+            logOutput.writeLog("覇者の紋章のテーブルを削除します。");
+            command(string.Format("DROP TABLE {0};",tablename));
+        }
+
+        public void createtable()
+        {
+            logOutput.writeLog("覇者の紋章のテーブルを作成します。");
+            string queStr = string.Format("CREATE TABLE {0} (ID int primary key,ChpName text);", tablename);
+
+            command(queStr);
         }
 
         public void setTable(string table)
