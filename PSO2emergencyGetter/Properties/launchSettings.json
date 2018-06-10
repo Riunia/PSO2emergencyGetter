@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "PSO2emergencyGetter": {
+      "commandName": "Project"
+    },
+    "PSO2emergencyGetter_textfile": {
+      "commandName": "Project",
+      "commandLineArgs": "config/textconfig.txt"
+    }
+  }
+}

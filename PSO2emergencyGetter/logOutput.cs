@@ -114,6 +114,10 @@ namespace PSO2emergencyGetter
                 //System.Console.WriteLine(text);
                 System.Console.WriteLine("ログファイルへのアクセス権がありません。");
             }
+            catch (System.IO.IOException)
+            {
+                System.Console.WriteLine("ログファイルが使用中です。");
+            }
 
             System.Console.WriteLine(text);
         }

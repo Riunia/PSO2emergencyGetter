@@ -11,6 +11,7 @@ namespace PSO2emergencyGetter
         {
             if (args.Length != 0) //引数のファイルから
             {
+                //Console.WriteLine("Arg:{0}", args[0]);
                 ConsoleController cc = new ConsoleController(args[0]);
             }
             else
