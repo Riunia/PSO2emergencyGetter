@@ -65,7 +65,7 @@ namespace PSO2emergencyGetter
                 {
                     casino ca = ev as casino;
 
-                    address += string.Format("('{0}','{1}','','{2}','1')",
+                    adddata += string.Format("('{0}','{1}','','{2}','1')",
                         count.ToString(),
                         ca.eventName,
                         ca.eventTime.ToString());

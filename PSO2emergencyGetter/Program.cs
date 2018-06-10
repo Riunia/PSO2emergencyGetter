@@ -9,19 +9,15 @@ namespace PSO2emergencyGetter
     {
         static void Main(string[] args)
         {
-            //デバッグ用コード
-            /*
-            Controller con = new Controller();
-
-            (Task emg, Task chp) = con.getHttp();
-
-            chp.Wait();
-            emg.Wait();
-
-            Console.ReadLine();
-            */
-
-            ConsoleController cc = new ConsoleController();
+            if (args.Length != 0) //引数のファイルから
+            {
+                ConsoleController cc = new ConsoleController(args[0]);
+            }
+            else
+            {
+                ConsoleController cc = new ConsoleController();
+            }
+            //ConsoleController cc = new ConsoleController(@"config/textconfig.txt");
         }
     }
 }

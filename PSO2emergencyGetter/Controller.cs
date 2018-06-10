@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace PSO2emergencyGetter
 {
@@ -29,13 +30,16 @@ namespace PSO2emergencyGetter
         {
             this.conf = conf;
 
+            /*
             http = new HttpClient();
             emgGet = new AkiEmgGetter(http);
             chpGet = new AkiChpGetter(http);
 
             emgWriter = new EmgDatabase_Writer(conf.eveDB);
             chpWriter = new ChpDatabase_Writer(conf.chpDB);
-
+            */
+            init();
+            setNextGetTime();
             loop = startLoop();
         }
 
@@ -43,15 +47,78 @@ namespace PSO2emergencyGetter
         {
             conf = new ConfigController();
 
+            /*
             http = new HttpClient();
             emgGet = new AkiEmgGetter(http);
             chpGet = new AkiChpGetter(http);
 
             emgWriter = new EmgDatabase_Writer(conf.eveDB);
             chpWriter = new ChpDatabase_Writer(conf.chpDB);
+            */
 
+            init();
+
+            setNextGetTime();
             loop = startLoop();
         }
+
+        public Controller(string filename)  //テキストファイルから
+        {
+            if (File.Exists(filename) == true)
+            {
+                List<string> filedata = openTextfile(filename);
+                (ConfigController conf,bool mig) = setConfig(filedata);
+
+                if (conf == null)
+                {
+                    logOutput.writeLog("設定ファイルが記述されていません。");
+                    this.conf = new ConfigController();
+                }
+                else
+                {
+                    this.conf = conf;
+                }
+
+                init();
+
+                if(mig == true)
+                {
+                    migration();
+                }
+            }
+            else
+            {
+                logOutput.writeLog("ファイルが存在しません。");
+
+                conf = new ConfigController();
+                init();
+            }
+
+            setNextGetTime();
+            loop = startLoop();
+        }
+
+        private void init()
+        {
+            http = new HttpClient();
+            emgGet = new AkiEmgGetter(http);
+            chpGet = new AkiChpGetter(http);
+
+            emgWriter = new EmgDatabase_Writer(conf.eveDB);
+            chpWriter = new ChpDatabase_Writer(conf.chpDB);
+        }
+
+        public void migration()
+        {
+            dropChpTable();
+            dropEmgTable();
+            createChpTable();
+            createEmgTable();
+            (Task em, Task ch) = getHttp();
+            em.Wait();
+            ch.Wait();
+        }
+
 
         public void writeChpDB()
         {
@@ -154,15 +221,82 @@ namespace PSO2emergencyGetter
             {
                 if((DateTime.Now - nextTime).Seconds > 0)   //緊急クエスト・覇者の紋章の取得時間になった時
                 {
+                    getHttp();
                     EventArgs e = new EventArgs();
                     if (reloadTime != null)
                     {
                         reloadTime(this, e);
                     }
-                    setNextGetTime();
+                    //setNextGetTime();
                 }
 
                 System.Threading.Thread.Sleep(1000);
+            }
+        }
+
+        private List<string> openTextfile(string filename)  //ファイルを開いて1行ごとに配列にする
+        {
+            List<string> output = new List<string>();
+
+            using (StreamReader read = new StreamReader(filename))
+            {
+                string line;
+                while ((line = read.ReadLine()) != null)
+                {
+                    string addline = line.Replace(" ", "");
+                    addline = addline.Replace("\t", "");
+                    addline = addline.Replace("\n", "");
+                    output.Add(addline);
+                }
+            }
+
+            return output;
+        }
+
+        private (ConfigController cc,bool migration) setConfig(List<string> textfile)
+        {
+            string server = "";
+            string database = "";
+            string user = "";
+            string password = "";
+            bool mig = false;
+
+
+            foreach(string s in textfile)
+            {
+                string[] sepalate = s.Split('=');
+
+                switch (sepalate[0])
+                {
+                    case "server":
+                        server = sepalate[1];
+                        break;
+                    case "database":
+                        database = sepalate[1];
+                        break;
+                    case "user":
+                        user = sepalate[1];
+                        break;
+                    case "password":
+                        password = sepalate[1];
+                        break;
+                    case "init":
+                        if(sepalate[1] == "true" || sepalate[1] == "1" || sepalate[1] == "yes")
+                        {
+                            mig = true;
+                        }
+                        break;
+                }
+            }
+
+            if (server != "" && database != "" && user != "" && password != "")
+            {
+                ConfigController output = new ConfigController(user, password, server, database, ConfigController.POSTGRE);
+                return (output,mig);
+            }
+            else
+            {
+                return (null,mig);
             }
         }
     }

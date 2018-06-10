@@ -8,8 +8,8 @@ namespace PSO2emergencyGetter
     class ConfigController
     {
         //データベースの種類
-        const string POSTGRE = "POSTGRE_SQL";
-        const string DEFAULT = "POSTGRE_SQL";    //デフォルト
+        public const string POSTGRE = "POSTGRE_SQL";
+        public const string DEFAULT = "POSTGRE_SQL";    //デフォルト
 
         //ファイル名
         static public string filename = "config/config.xml";
@@ -42,6 +42,8 @@ namespace PSO2emergencyGetter
                 chpDB = new PostgreSQL_Chp(this.address, this.db_name, this.username, this.password);
                 eveDB = new PostgreSQL_Emg(this.address, this.db_name, this.username, this.password);
             }
+
+            saveFile();
         }
 
         public ConfigController()    //ファイル名から作成

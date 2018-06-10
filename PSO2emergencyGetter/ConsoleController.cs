@@ -13,13 +13,23 @@ namespace PSO2emergencyGetter
 
         public ConsoleController()
         {
+            outputTitle();
             end = false;
             controll = new Controller();
             loop();
         }
 
+        public ConsoleController(string textfile)
+        {
+            outputTitle();
+            end = false;
+            controll = new Controller(textfile);
+            loop();
+        }
+
         private (string command,List<string> param) commandSepalate(string RawCommand)
         {
+            //outputTitle();
             string[] sepalate = RawCommand.Split(' ');
 
             string outCommand = "";
@@ -211,21 +221,67 @@ namespace PSO2emergencyGetter
             if(command == "init")
             {
                 Console.WriteLine("初期コマンドを実行します。");
+                /*
+                controll.dropChpTable();
+                controll.dropEmgTable();
                 controll.createChpTable();
                 controll.createEmgTable();
                 (Task em, Task ch) = controll.getHttp();
                 em.Wait();
                 ch.Wait();
+                */
+                controll.migration();
+                run = true;
+            }
+
+            if(command == "version")
+            {
+                outputVersion();
+                run = true;
+            }
+
+            if(command == "help")
+            {
+                outputHelp();
+                run = true;
             }
 
             if(run == false)
             {
-                Console.WriteLine("コマンドが見つかりません。");
+                //Console.WriteLine("コマンドが見つかりません。");
+                outputHelp();
             }
             else
             {
                // outputPronpt();
             }
+        }
+
+        private void outputTitle()
+        {
+            Console.WriteLine("-----------------------------");
+            outputVersion();
+            Console.WriteLine("-----------------------------");
+
+        }
+
+        private void outputVersion()
+        {
+            Console.WriteLine("PSO2EmergencyGetter");
+            Console.WriteLine("Version {0}", myFunction.getAssemblyVersion());
+            Console.WriteLine("Copyright (c) 2018 Kousokujin.");
+            Console.WriteLine("Released under the MIT license.");
+        }
+
+        private void outputHelp()
+        {
+            Console.WriteLine("create [emg|chp] :緊急クエストまたは覇者の紋章のテーブル作成");
+            Console.WriteLine("clear [emg|chp] :緊急クエストまたは覇者の紋章のテーブルをクリア");
+            Console.WriteLine("drop [emg|chp] :緊急クエストまたは覇者の紋章のテーブル削除");
+            Console.WriteLine("get [emg|chp] :緊急クエストまたは覇者の紋章の情報を取得しテーブルに書き込み");
+            Console.WriteLine("init :緊急クエストと覇者の紋章の紋章のテーブルをクリアし、テーブルに書き込み");
+            Console.WriteLine("chp:覇者の紋章");
+            Console.WriteLine("emg:緊急クエスト");
         }
     }
 }

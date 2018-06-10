@@ -1,0 +1,5 @@
+﻿server = 192.168.1.247
+database = docker
+user = docker
+password = docker
+init = true
