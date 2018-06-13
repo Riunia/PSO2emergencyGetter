@@ -43,6 +43,12 @@ namespace PSO2emergencyGetter
 
         public string EventDataConvertQue(List<EventData> data)
         {
+            if(data.Count == 0)
+            {
+                logOutput.writeLog("実行するクエリがありません。");
+                return "";
+            }
+
             string outQue = string.Format("INSERT INTO {0} (ID, EmgName, LiveName, EmgTime, EmgType) VALUES ",tablename);
             int count = 1;
             string tmpdata = "";

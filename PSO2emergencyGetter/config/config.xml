@@ -2,7 +2,8 @@
 <saveClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <username>docker</username>
   <password>docker</password>
-  <address>192.168.1.247</address>
+  <address>192.168.1.235</address>
   <db_name>docker</db_name>
   <db>POSTGRE_SQL</db>
+</saveClass>RE_SQL</db>
 </saveClass>

@@ -58,6 +58,11 @@ namespace PSO2emergencyGetter
 
         public override object command(string que)
         {
+            if(que == "")
+            {
+                return 1;
+            }
+
             NpgsqlConnection con = NpgConnect();
             NpgsqlCommand command = new NpgsqlCommand(que, con);
             if(con != null) {
