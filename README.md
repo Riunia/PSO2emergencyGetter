@@ -44,6 +44,9 @@ initはtrueだと初期化コマンドを実行して緊急クエスト情報と
 > init
 ```
 
+# ダウンロード
+[ダウンロード](https://github.com/kousokujin/PSO2emergencyGetter/releases)
+
 # Licence
 Copyright (c) 2018 kousokujin.
 
