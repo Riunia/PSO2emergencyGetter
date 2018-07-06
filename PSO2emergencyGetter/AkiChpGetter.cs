@@ -31,7 +31,8 @@ namespace PSO2emergencyGetter
 
             foreach(string s in JsonResult.TargetList)
             {
-                outputStr.Add(s);
+                string convert = myFunction.replaceHTMLcharacter(s);
+                outputStr.Add(convert);
             }
 
             return outputStr;

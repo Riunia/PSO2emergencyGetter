@@ -85,5 +85,25 @@ namespace PSO2emergencyGetter
 
             return output;
         }
+
+        //HTML特殊文字を置き換え（一部）
+        static public string replaceHTMLcharacter(string str)
+        {
+            string output = str;
+            output = output.Replace("<br>", ""); //<br>
+            //ローマ数字
+            output = output.Replace("&#8544;", "I");
+            output = output.Replace("&#8545;", "II");
+            output = output.Replace("&#8546;", "III");
+            output = output.Replace("&#8547;", "IV");
+            output = output.Replace("&#8548;", "V");
+            output = output.Replace("&#8549;", "VI");
+            output = output.Replace("&#8550;", "VII");
+            output = output.Replace("&#8551;", "VIII");
+            output = output.Replace("&#8552;", "IX");
+            output = output.Replace("&#8553;", "X");
+
+            return output;
+        }
     }
 }

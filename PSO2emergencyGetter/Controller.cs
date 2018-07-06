@@ -189,14 +189,14 @@ namespace PSO2emergencyGetter
             int getDays = 7 - ((int)DateTime.Now.DayOfWeek + 4) % 7;
             if (getDays == 7)   //水曜日の時
             {
-                DateTime dt1700 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 0, 0);   //今日の17:00
+                DateTime dt1700 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16, 45, 0);   //今日の16:45
                 if (DateTime.Compare(DateTime.Now, dt1700) <= 0)
                 {
                     getDays = 0;
                 }
             }
 
-            nextTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 0, 0) + new TimeSpan(getDays, 0, 0, 0);
+            nextTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16, 45, 0) + new TimeSpan(getDays, 0, 0, 0);
             logOutput.writeLog(string.Format("次の取得は{0}月{1}日{2}時{3}分です。", nextTime.Month, nextTime.Day, nextTime.Hour, nextTime.Minute));
         }
 
