@@ -30,28 +30,37 @@ namespace PSO2emergencyGetter
         private (string command,List<string> param) commandSepalate(string RawCommand)
         {
             //outputTitle();
-            string[] sepalate = RawCommand.Split(' ');
-
-            string outCommand = "";
-            List<string> outPara = new List<string>();
-            int count = 0;
-
-            foreach (string s in sepalate)
+            try
             {
-                if(count == 0)
+                string[] sepalate = RawCommand.Split(' ');
+
+                string outCommand = "";
+                List<string> outPara = new List<string>();
+                int count = 0;
+
+                foreach (string s in sepalate)
                 {
-                    outCommand = s;
-                }
-                else
-                {
-                    outPara.Add(s);
+                    if (count == 0)
+                    {
+                        outCommand = s;
+                    }
+                    else
+                    {
+                        outPara.Add(s);
+                    }
+
+                    count++;
                 }
 
-                count++;
+                return (outCommand, outPara);
             }
+            catch
+            {
+                string outCom = "";
+                List<string> lstStr = new List<string>();
 
-            return (outCommand, outPara);
-
+                return (outCom,lstStr);
+            }
         }
 
         private void outputPronpt()
