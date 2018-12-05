@@ -1,4 +1,4 @@
-﻿server = 192.168.1.235
+﻿server = 192.168.1.50
 database = docker
 user = docker
 password = docker

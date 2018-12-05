@@ -62,8 +62,8 @@ namespace PSO2emergencyGetter
 
                     adddata += string.Format("('{0}','{1}','{2}','{3}','0')",
                             count.ToString(),
-                            emg.eventName,
-                            emg.live,
+                            myFunction.escapeStr(emg.eventName),
+                            myFunction.escapeStr(emg.live),
                             emg.eventTime.ToString());
                 }
 
@@ -73,7 +73,7 @@ namespace PSO2emergencyGetter
 
                     adddata += string.Format("('{0}','{1}','','{2}','1')",
                         count.ToString(),
-                        ca.eventName,
+                        myFunction.escapeStr(ca.eventName),
                         ca.eventTime.ToString());
                 }
 

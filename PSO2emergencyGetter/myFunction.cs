@@ -105,5 +105,14 @@ namespace PSO2emergencyGetter
 
             return output;
         }
+
+        //"とか'をエスケープ
+        static public string escapeStr(string str)
+        {
+            string esp_str = str.Replace("'", "");
+            //esp_str = esp_str.Replace("\"", "\\\"");
+
+            return esp_str;
+        }
     }
 }
