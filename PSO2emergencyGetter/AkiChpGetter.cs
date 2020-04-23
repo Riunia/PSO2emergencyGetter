@@ -9,7 +9,7 @@ namespace PSO2emergencyGetter
 {
     class AkiChpGetter : AbstractChampion
     {
-        const string getUrl = "https://xpow0wu0s5.execute-api.ap-northeast-1.amazonaws.com/v2";
+        const string getUrl = "https://pso2.akakitune87.net/api/coat_of_arms";
 
         public AkiChpGetter(HttpClient hc) : base(getUrl, Encoding.UTF8, hc)
         {
